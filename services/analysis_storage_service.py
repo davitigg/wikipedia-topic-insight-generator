@@ -4,22 +4,7 @@ from beanie import PydanticObjectId
 from bson.errors import InvalidId
 
 from repositories.analysis_repository import AnalysisRepository
-from schemas.analysis_schema import AnalysisResponse, AnalysisCreate
-
-
-async def analyze_topic(topic_name: str) -> AnalysisResponse:
-    # Placeholder logic for analyzing the topic
-    # You should replace this with your actual analysis logic
-    analysis_data = {
-        "topic_name": topic_name,
-        "summary": "This is a summary of the topic.",
-        "key_themes": ["Theme1", "Theme2"],
-        "trends": ["Trend1", "Trend2"],
-        "insights": "These are insights about the topic."
-    }
-    analysis = AnalysisCreate(**analysis_data)
-    new_analysis = await AnalysisRepository.create_analysis(analysis)
-    return new_analysis
+from schemas.analysis_schema import AnalysisResponse
 
 
 async def get_analyses(topic_name: Optional[str] = None) -> List[AnalysisResponse]:
