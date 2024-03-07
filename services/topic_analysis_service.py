@@ -14,7 +14,7 @@ async def analyze_topic(topic_name: str) -> AnalysisResponse | None:
     topic_name = topic_name.lower()
 
     # Fetch data from Wikipedia
-    wiki_data = fetch_wikipedia_data(topic_name)
+    wiki_data = await fetch_wikipedia_data(topic_name)
 
     if wiki_data:
         # extract title and text of wikipedia page
