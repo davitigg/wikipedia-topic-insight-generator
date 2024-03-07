@@ -12,6 +12,8 @@ router = APIRouter()
 async def analyze_topic(
         topic_name: str = Query(..., description="The name of the topic to analyze")):
     analysis_result = await topic_analysis_service.analyze_topic(topic_name)
+    if analysis_result is None:
+        raise HTTPException(status_code=404, detail="Topic not found")
     return analysis_result
 
 

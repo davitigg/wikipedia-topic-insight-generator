@@ -1,3 +1,4 @@
+import re
 from typing import List, Optional
 
 from beanie import PydanticObjectId
@@ -20,8 +21,11 @@ class AnalysisRepository:
         return [AnalysisResponse(**analysis.dict(by_alias=True)) for analysis in analyses]
 
     @staticmethod
-    async def get_all_analysis_by_topic_name(topic_name: [str]) -> List[AnalysisResponse]:
-        analyses = await AnalysisModel.find(AnalysisModel.topic_name == topic_name).to_list()
+    async def get_all_analysis_by_topic_name(topic_name: str) -> List[AnalysisResponse]:
+        regex = re.compile(f'^{re.escape(topic_name)}$', re.IGNORECASE)
+        analyses = await AnalysisModel.find(
+            {"topic_name": {"$regex": regex}}
+        ).to_list()
         return [AnalysisResponse(**analysis.dict(by_alias=True)) for analysis in analyses]
 
     @staticmethod
@@ -40,7 +44,10 @@ class AnalysisRepository:
 
     @staticmethod
     async def delete_all_analysis_by_topic_name(topic_name: str) -> int:
-        delete_result = await AnalysisModel.find(AnalysisModel.topic_name == topic_name).delete()
+        regex = re.compile(f'^{re.escape(topic_name)}$', re.IGNORECASE)
+        delete_result = await AnalysisModel.find(
+            {"topic_name": {"$regex": regex}}
+        ).delete()
         if delete_result:
             return delete_result.deleted_count
         return 0

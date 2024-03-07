@@ -9,6 +9,7 @@ from schemas.analysis_schema import AnalysisResponse
 
 async def get_analyses(topic_name: Optional[str] = None) -> List[AnalysisResponse]:
     if topic_name:
+        print(topic_name)
         return await AnalysisRepository.get_all_analysis_by_topic_name(topic_name)
     else:
         return await AnalysisRepository.get_all_analysis()
@@ -22,7 +23,7 @@ async def get_specific_analysis(analysis_id: str) -> Optional[AnalysisResponse]:
     return await AnalysisRepository.get_specific_analysis(analysis_id_obj)
 
 
-async def delete_analyses(topic_name: str) -> int:
+async def delete_analyses(topic_name: Optional[str] = None) -> int:
     if topic_name:
         return await AnalysisRepository.delete_all_analysis_by_topic_name(topic_name)
     else:
