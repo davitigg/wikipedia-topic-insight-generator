@@ -1,6 +1,10 @@
 import asyncio
 
 import wikipediaapi
+from cachetools import TTLCache
+
+# Create a cache with a maximum size of 100 items and a TTL of 15 minutes
+cache = TTLCache(maxsize=100, ttl=900)
 
 
 async def fetch_wikipedia_data(topic_name: str) -> tuple[str, str] | None:
@@ -13,6 +17,13 @@ async def fetch_wikipedia_data(topic_name: str) -> tuple[str, str] | None:
             return page.title, page.text
         else:
             return None
-        # Run the synchronous function in a background thread
 
-    return await asyncio.to_thread(get_data)
+    # Check if the topic is in the cache
+    if topic_name in cache:
+        return cache[topic_name]
+
+    # Fetch data and add it to the cache
+    data = await asyncio.to_thread(get_data)
+    if data:
+        cache[topic_name] = data
+    return data
