@@ -13,6 +13,11 @@ it using Large Language Models (LLMs) to generate insights, and stores the outco
 - Provide a RESTful API to interact with the application.
 - Dockerize the application for ease of deployment and scalability.
 
+## Analysis Report
+
+For insights generated from analyzing specified Wikipedia topics, please refer to
+the [Analysis Report](analysis_report.md).
+
 ## Installation
 
 To set up the project, follow these steps:
