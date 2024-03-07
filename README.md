@@ -44,7 +44,8 @@ To set up the project, follow these steps:
     REPLICATE_API_TOKEN=your_replicate_api_token_here
     ```
 
-   Replace `your_replicate_api_token_here` with your actual Replicate API token.
+   Replace your_replicate_api_token_here with your actual Replicate API token. You can obtain your Replicate API token
+   from [Replicate's website](https://replicate.com/).
 
 ## Usage
 
